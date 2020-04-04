@@ -1,0 +1,108 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include<bits/stdc++.h>
+
+using namespace std;
+int* int_to_array(int x){
+    int* arr=(int*)malloc(150*sizeof(int));
+    int i=149;
+    while(x>0){
+        arr[i]=x%10;
+        x=x/10;
+        i--;
+    }
+    i+=1;
+    int len=150-i;
+    int* result=(int*)malloc(len*sizeof(int));
+    for(int j=0;j<len;j++){
+        result[j]=arr[i++];
+    }
+    
+    return result;
+}
+int* find_max(int* arr,int n){
+    int* temp=(int*)malloc((n+1)*sizeof(int));
+    int i=0;
+    temp[0]=arr[0];
+    int k=1;
+    for(i=0;i<n;i++){
+        if(i==n-1){
+            temp[k]=0-arr[n-1];
+        }
+        else{
+        temp[k++]=arr[i+1]-arr[i];
+        }
+        
+    }
+    return temp;
+}
+string make_bracket(int n){
+    string a="";
+    if(n==0){
+        return a;
+    }
+    if(n>0){
+        for(int i=0;i<n;i++){
+            a=a+"(";
+        }
+    }
+    else if(n<0){
+        n=abs(n);
+        for(int i=0;i<n;i++){
+            a=a+")";
+        }
+    }
+    return a;
+}
+void func(string temp){
+    string result;
+    
+    int len=temp.length();
+    int x=stoi(temp);
+    int* arr_string=int_to_array(x);
+    int* bracket=find_max(arr_string,len);
+    // for(int i=0;i<len+1;i++){
+    //     cout<<bracket[i];
+    // }
+    // cout<<"\n";
+    string ans="";
+    int z=0;
+    
+    for(int i=0;i<len+1;i++){
+    
+            string bl=make_bracket(bracket[i]);
+            //cout<<bracket[i];
+            ans.append(bl);
+            char valueofnum=temp[i];
+            cout<<bl;
+            cout<<valueofnum;
+            
+            
+        
+    }
+    
+}
+int main()
+{
+    int n;
+    cin>> n;
+    int i=1;
+    while(i<=n){
+        string a;
+        cin>> a;
+        printf("Case #%d: ",i);
+        func(a);
+        cout<<"\n";
+        i++;
+    }
+    
+    
+
+    return 0;
+}
